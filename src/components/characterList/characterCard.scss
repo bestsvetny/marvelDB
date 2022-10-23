@@ -1,0 +1,38 @@
+@import '../../style/variables.scss';
+
+.character-card {
+    height: 318px;
+    width: 200px;
+    background: $dark;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    
+    &:hover, &:focus {
+        cursor: pointer;
+        transform: translateY(-6px);
+        transition: transform 0.1s;
+    }
+
+    &_active {
+        position: relative;
+        box-shadow: 0px 5px 20px $main-color;
+        transform: translateY(-6px);
+    }
+
+    &__image {
+        width: 200px;
+        height: 200px;
+    }
+
+    &__name {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26px;
+        color: #FFFFFF;
+        padding: 15px;
+    }
+
+    &__link {
+        text-decoration: none;
+    }
+}

@@ -1,0 +1,14 @@
+.character-list {
+    margin-right: 25px;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px 25px;
+        width: 650px;
+    }
+
+    &__load-more-btn {
+        margin: 45px auto 0 auto;
+    }
+}

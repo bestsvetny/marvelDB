@@ -1,0 +1,83 @@
+@import './reset.scss';
+@import './variables.scss';
+
+/* roboto-condensed-regular - latin */
+@font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-condensed-v25-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/roboto-condensed-v25-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/roboto-condensed-v25-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/roboto-condensed-v25-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/roboto-condensed-v25-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/roboto-condensed-v25-latin-regular.svg#RobotoCondensed') format('svg'); /* Legacy iOS */
+  }
+  /* roboto-condensed-700 - latin */
+  @font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/roboto-condensed-v25-latin-700.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('../fonts/roboto-condensed-v25-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/roboto-condensed-v25-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/roboto-condensed-v25-latin-700.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/roboto-condensed-v25-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/roboto-condensed-v25-latin-700.svg#RobotoCondensed') format('svg'); /* Legacy iOS */
+  }
+
+html{
+    box-sizing: border-box;
+    }
+*, *::before, *::after{
+    box-sizing: inherit;
+    }
+
+body {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    background: url('../resources/img/bg-asset.png') no-repeat right bottom;
+}
+
+.app {
+    max-width: 1130px;
+    padding: 50px 15px;
+    margin: 0 auto;
+    color: #000000;
+    min-height: 600px; //!
+}
+
+.wrapper {
+    margin-top: 50px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

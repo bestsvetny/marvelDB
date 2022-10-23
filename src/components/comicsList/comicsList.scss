@@ -1,0 +1,52 @@
+.comics-list {
+    margin-top: 49px;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 55px 67px;
+    }
+
+    &__item {
+        height: 413px;
+        width: 225px;
+
+        &:hover, &:focus {
+            cursor: pointer;
+            transform: translateY(-6px);
+            transition: transform 0.1s;
+        }
+    }
+
+    &__image {
+        display: block;
+        height: 346px;
+        width: 245px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    }
+    
+    &__title {
+        margin-top: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    &__price {
+        margin-top: 5px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    &__link {
+        text-decoration: none;
+        color: #000;
+    }
+
+    &__load-more-btn {
+        margin: 45px auto 0 auto;
+    }
+}

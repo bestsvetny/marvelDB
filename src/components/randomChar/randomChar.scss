@@ -1,0 +1,83 @@
+@import '../../style/variables.scss';
+
+.random-char {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    &__char-block {
+        display: flex;
+        justify-content: space-between;
+
+        padding: 35px 35px 35px 40px;
+        width: 550px;
+        height: 250px;
+
+        background: #FFFFFF;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    &__thumb {
+        display: block;
+        width: 180px;
+        height: 180px;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        width: 265px;
+        height: 180px;
+    }
+
+    &__name {
+        width: 265px;
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26px;
+    }
+
+    &__desc {
+        height: 90px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    &__links {
+        display: flex;
+        gap: 30px;
+        width: 100%;
+    }
+
+    &__generate {
+        padding: 35px 35px 35px 40px;
+        width: 550px;
+        height: 250px;
+
+        background: url('../../resources/img/decoration.png') no-repeat right -35px bottom 14px $dark;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 28px;
+
+        color: #FFFFFF;
+
+        & .button {
+            margin-top: 24px;
+        }
+    }
+
+    &__generate-text {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 28px;
+        &:nth-child(2) {
+            margin-top: 33px;
+        }
+    }
+
+}
