@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/marveldb/static/css/main.d00492ac.css",
+    "main.js": "/marveldb/static/js/main.d9b7b8cd.js",
+    "static/media/bg-asset.png": "/marveldb/static/media/bg-asset.4d6f967110994e4613c0.png",
+    "static/media/roboto-condensed-v25-latin-regular.svg": "/marveldb/static/media/roboto-condensed-v25-latin-regular.8bbcf46feb162b768a15.svg",
+    "static/media/roboto-condensed-v25-latin-700.svg": "/marveldb/static/media/roboto-condensed-v25-latin-700.7d286143e6606e65ec9d.svg",
+    "static/media/roboto-condensed-v25-latin-regular.ttf": "/marveldb/static/media/roboto-condensed-v25-latin-regular.0d0e892d77350387cadd.ttf",
+    "static/media/roboto-condensed-v25-latin-700.ttf": "/marveldb/static/media/roboto-condensed-v25-latin-700.21d5ac766742db5e6375.ttf",
+    "static/media/decoration.png": "/marveldb/static/media/decoration.b10f8e634d5efd274514.png",
+    "static/media/avengers.png": "/marveldb/static/media/avengers.c29e0ef078dddc7551e8.png",
+    "static/media/error.gif": "/marveldb/static/media/error.42292aa12b6bc303ce99.gif",
+    "static/media/roboto-condensed-v25-latin-700.woff": "/marveldb/static/media/roboto-condensed-v25-latin-700.45d1ce7e4b9ea693389e.woff",
+    "static/media/roboto-condensed-v25-latin-regular.woff": "/marveldb/static/media/roboto-condensed-v25-latin-regular.6edcf4aeb769818e21aa.woff",
+    "static/media/roboto-condensed-v25-latin-700.eot": "/marveldb/static/media/roboto-condensed-v25-latin-700.c23f4320a99671220a8d.eot",
+    "static/media/roboto-condensed-v25-latin-regular.eot": "/marveldb/static/media/roboto-condensed-v25-latin-regular.261dc3f135d2ba91fb0a.eot",
+    "static/media/roboto-condensed-v25-latin-regular.woff2": "/marveldb/static/media/roboto-condensed-v25-latin-regular.bb7a4e73944870e385e1.woff2",
+    "static/media/roboto-condensed-v25-latin-700.woff2": "/marveldb/static/media/roboto-condensed-v25-latin-700.6c26e7ba325616ba4252.woff2",
+    "static/media/avengers-logo.png": "/marveldb/static/media/avengers-logo.9b944f717f2c146c4762.png",
+    "index.html": "/marveldb/index.html",
+    "main.d00492ac.css.map": "/marveldb/static/css/main.d00492ac.css.map",
+    "main.d9b7b8cd.js.map": "/marveldb/static/js/main.d9b7b8cd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d00492ac.css",
+    "static/js/main.d9b7b8cd.js"
+  ]
+}
