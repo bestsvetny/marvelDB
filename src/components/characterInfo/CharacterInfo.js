@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import useMarvelService from '../../services/MarvelService'
 
@@ -65,7 +66,7 @@ const View = ({char}) => {
                     <img src={thumb} alt={name} className="character-info__image" style={imgStyle}/>
                     <div className="character-info__block">
                         <p className="character-info__name">
-                            {name.length > 28 ? `${name.slice(0, 28)}...` : name}
+                            {name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}
                         </p>
                         <div className="character-info__buttons">
                             <a href={homepage} className="button button_main">
@@ -92,7 +93,9 @@ const View = ({char}) => {
                             comics.map((item, i) => {
                                 if (i < 10) {
                                     return (
-                                        <li key={i} className="character-info__comics-list-item">{item.name}</li>
+                                        <Link key={i} to={`/comics/${item.comicId}`} className='character-info__comics-link'>
+                                            <li  className="character-info__comics-list-item">{item.name}</li>
+                                        </Link>
                                     )
                                 }
                                 else return null

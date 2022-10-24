@@ -36,7 +36,10 @@ const useMarvelService = () => {
             desc: char.description === '' ? 'No description for this character' : `${char.description.slice(0, char.description.indexOf(' ', 200))}...`,
             homepage: char.urls[0].url,
             wiki: char.urls[1].url,
-            comics: char.comics.items,
+            comics: char.comics.items.map(item => {
+                return {name: item.name,
+                comicId: item.resourceURI.slice(43)}
+            }),
             isImgFound: !(`${char.thumbnail.path}` === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available')
         }
     }

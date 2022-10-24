@@ -1,11 +1,11 @@
 import ComicsBanner from '../comicsBanner/ComicsBanner'
-import ComicsList from'../comicsList/ComicsList'
+import { Outlet } from 'react-router-dom'
 
 const ComicsPage = () => {
     return(
         <>
             <ComicsBanner />
-            <ComicsList />
+            <Outlet/>
         </>
     )
 }

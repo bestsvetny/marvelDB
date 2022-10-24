@@ -64,7 +64,7 @@ const CharacterList = (props) => {
                                 focusOnItem(i)
                                 }}}>
                             <img src={thumb} alt="Character" className="character-card__image" style={imgStyle}/>
-                            <p className="character-card__name">{name}</p>
+                            <p className="character-card__name">{name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}</p>
                         </li>
                     )
 

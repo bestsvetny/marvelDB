@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import useMarvelService from '../../../services/MarvelService';
+import { lazy } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import useMarvelService from '../../../services/MarvelService'
 
-import ComicsBanner from '../../comicsBanner/ComicsBanner';
 import Spinner from '../../spinner/Spinner'
-import ErrorMessage from '../../errorMessage/ErrorMessage'
-
 import './singleComicPage.scss'
+
+const Page404 = lazy(() => import('../404'))
 
 const SingleComicPage = () => {
     const [comic, setComic] = useState(null)
@@ -33,13 +33,12 @@ const SingleComicPage = () => {
         setComic(comic)
     }
 
-    const errorMessage = error ? <ErrorMessage/> : null;
+    const errorMessage = error ? <Page404/> : null;
     const spinner = loading ? <Spinner/> : null;
     const content = !(loading || error || !comic) ? <View comic={comic}/> : null;
 
     return (
         <>
-        <ComicsBanner/>
         <div className="comic">
             {errorMessage}
             {spinner}
