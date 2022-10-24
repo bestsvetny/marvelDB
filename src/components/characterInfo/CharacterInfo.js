@@ -23,7 +23,7 @@ const CharacterInfo = (props) => {
         updateChar()
     },[props.charId])
 
-     const updateChar = () => {
+    const updateChar = () => {
         clearError()
 
         const {charId} = props;
@@ -39,20 +39,20 @@ const CharacterInfo = (props) => {
         setChar(char)
     }
     
-        const skeleton = char || loading || error ? null : <Skeleton/>
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error || !char) ? <View char={char}/> : null;
+    const skeleton = char || loading || error ? null : <Skeleton/>
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error || !char) ? <View char={char}/> : null;
 
-        return (
-            <div className="character-info">
-                {skeleton}
-                {errorMessage}
-                {spinner}
-                {content}
-    
-            </div>
-        )
+    return (
+        <div className="character-info">
+            {skeleton}
+            {errorMessage}
+            {spinner}
+            {content}
+
+        </div>
+    )
        
 }
 

@@ -30,6 +30,8 @@
 
 html{
     box-sizing: border-box;
+    overflow-x: hidden;
+    margin-right: calc(-1 * (100vw - 100%));
     }
 *, *::before, *::after{
     box-sizing: inherit;

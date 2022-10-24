@@ -1,4 +1,4 @@
-import ComicsBanner from '../comicsPage/ComicsBanner'
+import ComicsBanner from '../comicsBanner/ComicsBanner'
 import ComicsList from'../comicsList/ComicsList'
 
 const ComicsPage = () => {

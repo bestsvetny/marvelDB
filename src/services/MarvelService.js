@@ -18,6 +18,11 @@ const useMarvelService = () => {
         return _transformCharacter(response.data.results[0]); //возвращаем трансформированный объект
     }
 
+    const getComic = async (id) => {
+        const response = await request(`${_apiBase}/comics/${id}?apikey=${_apiKey}`);
+        return _transformComics(response.data.results[0])
+    }
+
     const getAllComics = async (offset = _comicsOffset) => {
         const response = await request(`${_apiBase}/comics?limit=8&offset=${offset}&apikey=${_apiKey}`);
         return response.data.results.map(_transformComics);
@@ -43,12 +48,13 @@ const useMarvelService = () => {
             thumb: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
             desc: comic.description === '' ? 'There is no description for this comic' : comic.description,
             pageCount: comic.pageCount,
+            lang: comic.textObjects.language || 'en-us',
             price: comic.prices[0].price !== 0 ? `${comic.prices[0].price}$` : 'NOT AVAILABLE',
             isImgFound: !(`${comic.thumbnail.path}` === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'),
         }
     }
 
-    return {loading, error, clearError, getAllCharacters, getCharacter, getAllComics}
+    return {loading, error, clearError, getAllCharacters, getCharacter, getAllComics, getComic}
 }
 
 export default useMarvelService;

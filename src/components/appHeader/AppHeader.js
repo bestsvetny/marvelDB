@@ -18,7 +18,7 @@ function AppHeader() {
 				</li>
 				<li className="app-header__menu-item">
 					<NavLink 
-						end to="/comics" 
+						to="/comics" 
 						className={({isActive}) => "app-header__menu-link" + (isActive ? ' app-header__menu-link_active' : '')}>Comics</NavLink>
 				</li>
 			</ul>
