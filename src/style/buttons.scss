@@ -88,7 +88,7 @@
     &.button_grey::before, &.button_grey::after {
         background-color: $grey;
     }
-    &:hover, &:focus {
+    &:hover {
         transform: translateY(-5px);
     }
     &:disabled {

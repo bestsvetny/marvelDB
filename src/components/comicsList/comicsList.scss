@@ -16,6 +16,33 @@
             transform: translateY(-6px);
             transition: transform 0.1s;
         }
+
+            //transition
+
+        &-enter {
+            opacity: 0;
+        }
+
+        &-enter-active {
+            opacity: 1;
+            transition: all 300ms;
+            visibility: visible;
+        }
+
+        &-enter-done {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &-exit {
+            opacity: 1;
+        }
+
+        &-exit-active {
+            opacity: 0;
+            transition: all 300ms;
+            visibility: hidden;
+        }
     }
 
     &__image {

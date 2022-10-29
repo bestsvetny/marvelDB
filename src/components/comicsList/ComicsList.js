@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import useMarvelService from '../../services/MarvelService'
 import Spinner from '../spinner/Spinner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
@@ -41,9 +42,12 @@ const ComicsList = () => {
                 const {title, price, thumb} = item
 
                 return (
+                    <CSSTransition
+                        key={i}
+                        timeout={300}  // Длительность перехода
+                        classNames="comics-list__item">
                     <li 
                     className="comics-list__item"
-                    key={i} 
                     tabIndex='0'>
                         <Link to={`/comics/${item.id}`} className='comics-list__link'>
                             <img src={thumb} alt="X-men" className="comics-list__image" />
@@ -51,6 +55,7 @@ const ComicsList = () => {
                             <p className="comics-list__price">{price}</p>
                         </Link>
                     </li>
+                    </CSSTransition>
                 )
             }))
         )
@@ -65,7 +70,9 @@ const ComicsList = () => {
                 {spinner}
                 {errorMessage}
             <ul className="comics-list__grid">
-                {content}
+                <TransitionGroup component={null}>
+                    {content}
+                </TransitionGroup>
             </ul>
             <button 
                 className="comics-list__load-more-btn button button_main button_long"

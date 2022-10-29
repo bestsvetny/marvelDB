@@ -73,7 +73,7 @@ const View = ({char}) => {
                                 <div className="inner">homepage</div>
                             </a>
                             <a href={wiki} className="button button_grey">
-                            <div className="inner">wiki</div>
+                                <div className="inner">wiki</div>
                             </a>
                         </div>
                     </div>

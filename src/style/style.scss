@@ -66,6 +66,11 @@ body {
     align-items: flex-start;
 }
 
+.aside {
+    position: sticky;
+    top: 20px;
+}
+
 .wrap-fvc {
     display: flex;
     flex-direction: column;

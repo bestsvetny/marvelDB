@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage'
@@ -51,10 +53,14 @@ const CharacterList = (props) => {
                 const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
 
                     return (
+                        <CSSTransition
+                            key={id}
+                            timeout={300}  // Длительность перехода
+                            classNames="character-card">
+                            
                         <li className="character-card"
                             tabIndex='0'
                             ref={element => itemRefs.current[i] = element}
-                            key={id}
                             onClick={() => {
                                 props.onCharSelected(id)
                                 focusOnItem(i)
@@ -66,6 +72,7 @@ const CharacterList = (props) => {
                             <img src={thumb} alt="Character" className="character-card__image" style={imgStyle}/>
                             <p className="character-card__name">{name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}</p>
                         </li>
+                        </CSSTransition>
                     )
 
             }))
@@ -81,7 +88,9 @@ const CharacterList = (props) => {
             {spinner}
             {errorMessage}
             <ul className="character-list__grid">
-            {content}
+                <TransitionGroup component={null}>
+                    {content}
+                </TransitionGroup>
             </ul>
             <button 
                 className="character-list__load-more-btn button button_main button_long"
