@@ -1,9 +1,9 @@
-import './comicsBanner.scss'
+import './appBanner.scss'
 
 import avengers from '../../resources/img/avengers.png'
 import avengersLogo from '../../resources/img/avengers-logo.png'
 
-function ComicsBanner() {
+function AppBanner() {
     return (
         <div className="banner">
             <div className="banner__block">
@@ -17,4 +17,4 @@ function ComicsBanner() {
     )
 }
 
-export default ComicsBanner;
+export default AppBanner;

@@ -49,7 +49,9 @@ const ComicsList = () => {
                     <li 
                     className="comics-list__item"
                     tabIndex='0'>
-                        <Link to={`/comics/${item.id}`} className='comics-list__link'>
+                        <Link 
+                            to={`/comics/${item.id}`}
+                            className='comics-list__link'>
                             <img src={thumb} alt="X-men" className="comics-list__image" />
                             <p className="comics-list__title">{title}</p>
                             <p className="comics-list__price">{price}</p>

@@ -1,0 +1,21 @@
+.char {
+    display: flex;
+
+    &__image {
+        height: 293px;
+        margin-right: 50px;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 26px;
+    }
+
+    &__info {
+        width: 550px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+    }
+}
