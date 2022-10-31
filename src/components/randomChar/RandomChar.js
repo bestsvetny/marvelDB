@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import useMarvelService from '../../services/MarvelService'
-import Spinner from '../spinner/Spinner'
-import ErrorMessage from '../errorMessage/ErrorMessage'
+import setContent from '../../utils/setContent'
 
 import '../../style/buttons.scss'
 import './randomChar.scss'
@@ -10,7 +9,7 @@ const RandomChar = () => {
 
     const [char, setChar] = useState({})//1!
 
-    const {loading, error, clearError, getCharacter} = useMarvelService(); //Создаем эксезмпляр сервисного компонента
+    const {process, setProcess, clearError, getCharacter} = useMarvelService(); //Создаем эксезмпляр сервисного компонента
 
     useEffect(() => {
         updateCharacter()
@@ -25,18 +24,13 @@ const RandomChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000); //генерируем рандомный id персонажа
         getCharacter(id) //Запрашиваем персонажа
             .then(onCharLoaded) //Получаем промис с персонажем и меняем стейт
+            .then(() => setProcess('confirmed'))
     }
-
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View char={char}/> : null;
 
     return (
         <div className="random-char">
             <div className="random-char__char-block">
-            {errorMessage}
-            {spinner}
-            {content}
+            {setContent(process, View, char)}
             </div>
             <div className="random-char__generate">
                 <p className='random-char__generate-text'>Random character for today! <br/>Do you want to get to know him better?</p>
@@ -50,8 +44,8 @@ const RandomChar = () => {
     )
 }
 
-function View({char}) {
-    const {name, thumb, desc, homepage, wiki, isImgFound} = char;
+function View({data}) {
+    const {name, thumb, desc, homepage, wiki, isImgFound} = data;
 
     const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
 

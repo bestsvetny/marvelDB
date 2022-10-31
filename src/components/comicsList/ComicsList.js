@@ -8,13 +8,28 @@ import ErrorMessage from '../errorMessage/ErrorMessage'
 import './comicsList.scss'
 import '../../style/buttons.scss'
 
+const setContent = (process, Component, newItemLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>
+        case 'loading':
+            return newItemLoading ? <Component/> : <Spinner/>
+        case 'confirmed':
+            return <Component/>
+        case 'error':
+            return <ErrorMessage/>
+        default:
+            throw new Error('Unexpected process state')
+    }
+}
+
 const ComicsList = () => {
     const [comicsList, setComicsList] = useState([])
     const [newItemLoading, setNewItemLoading] = useState(false)
     const [offset, setOffset] = useState(200)
     const [isComicsEnded, setIsComicsEnded] = useState(false)
 
-    const {loading, error, getAllComics} = useMarvelService()
+    const {getAllComics, process, setProcess} = useMarvelService()
 
     useEffect(() => {
         onRequest(offset, true)
@@ -24,6 +39,7 @@ const ComicsList = () => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true)
         getAllComics(offset)
             .then(onComicsListLoaded)
+            .then(() => setProcess('confirmed'))
     }
 
     const onComicsListLoaded = (newComicsList) => {
@@ -36,46 +52,40 @@ const ComicsList = () => {
         setIsComicsEnded(ended)
     }
 
-    function renderCards(comicsList) {
+    function renderCards(arr) {
+        const items = (arr.map((item, i) => {
+            const {title, price, thumb} = item
+            return (
+                <CSSTransition
+                    key={i}
+                    timeout={300}  // Длительность перехода
+                    classNames="comics-list__item">
+                <li 
+                className="comics-list__item"
+                tabIndex='0'>
+                    <Link 
+                        to={`/comics/${item.id}`}
+                        className='comics-list__link'>
+                        <img src={thumb} alt="X-men" className="comics-list__image" />
+                        <p className="comics-list__title">{title}</p>
+                        <p className="comics-list__price">{price}</p>
+                    </Link>
+                </li>
+                </CSSTransition>
+            )
+        }))
         return (
-            (comicsList.map((item, i) => {
-                const {title, price, thumb} = item
-
-                return (
-                    <CSSTransition
-                        key={i}
-                        timeout={300}  // Длительность перехода
-                        classNames="comics-list__item">
-                    <li 
-                    className="comics-list__item"
-                    tabIndex='0'>
-                        <Link 
-                            to={`/comics/${item.id}`}
-                            className='comics-list__link'>
-                            <img src={thumb} alt="X-men" className="comics-list__image" />
-                            <p className="comics-list__title">{title}</p>
-                            <p className="comics-list__price">{price}</p>
-                        </Link>
-                    </li>
-                    </CSSTransition>
-                )
-            }))
+            <ul className="comics-list__grid">
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
+            </ul>
         )
     }
 
-    const spinner = loading && !newItemLoading ? <Spinner/> : null
-    const errorMessage = error ? <ErrorMessage/> : null
-    const content = renderCards(comicsList)
-
     return (
         <div className="comics-list">
-                {spinner}
-                {errorMessage}
-            <ul className="comics-list__grid">
-                <TransitionGroup component={null}>
-                    {content}
-                </TransitionGroup>
-            </ul>
+                {setContent(process, () => renderCards(comicsList), newItemLoading)}
             <button 
                 className="comics-list__load-more-btn button button_main button_long"
                 onClick={() => onRequest(offset)}

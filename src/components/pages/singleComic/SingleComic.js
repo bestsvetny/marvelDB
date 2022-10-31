@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 import './singleComic.scss'
@@ -7,6 +8,13 @@ const SingleComic = ({data}) => {
     const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
 
     return (
+    <>  
+        <Helmet>
+            <meta
+                name="description"
+                content={`${title} comics book`}/>
+            <title>{title}</title>
+        </Helmet>
         <div className="comic">
             <img 
             src={thumb} 
@@ -22,6 +30,7 @@ const SingleComic = ({data}) => {
             </div>
             <Link to="/comics" className="comic__back-btn">Back to all</Link>
         </div>
+    </>
     )
 }
 
