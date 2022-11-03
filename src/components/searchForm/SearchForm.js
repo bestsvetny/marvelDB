@@ -17,7 +17,7 @@ import '../../style/buttons.scss'
 function SearchForm() {
     const [char, setChar] = useState({})
     
-    const {loading, getCharacterByName, clearError} = useMarvelService()
+    const {process, setProcess, getCharacterByName, clearError} = useMarvelService()
 
     const onCharLoaded = (char) => {
         setChar(char);
@@ -27,7 +27,8 @@ function SearchForm() {
         clearError();
 
         getCharacterByName(name)
-            .then(onCharLoaded);
+            .then(onCharLoaded)
+            .then(() => setProcess('confirmed'))
     }
 
     const success = char.length > 0 ? <Success char={char[0]}/> : null
@@ -56,7 +57,7 @@ function SearchForm() {
                         <button 
                             className="button button_main" 
                             type="submit"
-                            disabled={loading}>
+                            disabled={process === 'loading'}>
                             <div className="inner">find</div>
                         </button>
                     </div>

@@ -3,8 +3,7 @@
 .comic {
     display: flex;
     justify-content: space-between;
-    align-items: start;
-    margin-top: 50px;
+    align-items: flex-start;
 
     &__cover {
         width: 293px;

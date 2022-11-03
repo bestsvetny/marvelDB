@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import setContent from '../../utils/setContent';
 
 import useMarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import AppBanner from "../appBanner/AppBanner";
 import SingleComic from '../pages/singleComic/SingleComic'
 import SingleChar from './singleChar/SingleChar';
@@ -11,7 +10,7 @@ import SingleChar from './singleChar/SingleChar';
 const SinglePage = ({dataType}) => {
         const {itemId} = useParams();
         const [data, setData] = useState(null);
-        const {loading, error, getComic, getCharacter, clearError} = useMarvelService();
+        const {process, setProcess, getComic, getCharacter, clearError} = useMarvelService();
 
         useEffect(() => {
             updateData()
@@ -22,10 +21,12 @@ const SinglePage = ({dataType}) => {
 
             switch (dataType) {
                 case 'comic':
-                    getComic(itemId).then(onDataLoaded);
+                    getComic(itemId).then(onDataLoaded)
+                        .then(() => setProcess('confirmed'))
                     break;
                 case 'char':
-                    getCharacter(itemId).then(onDataLoaded);
+                    getCharacter(itemId).then(onDataLoaded)
+                        .then(() => setProcess('confirmed'))
                     break
                 default: 
                     break
@@ -36,16 +37,14 @@ const SinglePage = ({dataType}) => {
             setData(data);
         }
 
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
         let content
 
         switch (dataType) {
             case 'comic':
-                content = !(loading || error || !data) ? <SingleComic data={data}/> : null;
+                content = setContent(process, SingleComic, data);
                 break;
             case 'char':
-                content = !(loading || error || !data) ? <SingleChar data={data}/> : null;
+                content = setContent(process, SingleChar, data);
                 break
             default: 
                 break
@@ -55,8 +54,6 @@ const SinglePage = ({dataType}) => {
             <>
                 <AppBanner/>
                 <div style={{marginTop: '50px'}}>
-                    {errorMessage}
-                    {spinner}
                     {content}
                 </div>
             </>
