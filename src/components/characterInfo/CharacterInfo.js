@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import useMarvelService from '../../services/MarvelService'
 
-import Spinner from '../spinner/Spinner'
-import ErrorMessage from '../errorMessage/ErrorMessage'
-import Skeleton from '../skeleton/skeleton'
+import useMarvelService from '../../services/MarvelService'
+import setContent from '../../utils/setContent'
 
 import '../../style/buttons.scss'
 import './characterInfo.scss'
@@ -14,19 +12,13 @@ const CharacterInfo = (props) => {
     
     const [char, setChar] = useState(null)
 
-    const {loading, error, clearError, getCharacter} = useMarvelService();
-
-    useEffect(() => {
-        updateChar()
-    },[])
+    const {clearError, process, setProcess, getCharacter} = useMarvelService();
 
     useEffect(( ) => {
         updateChar()
     },[props.charId])
 
     const updateChar = () => {
-        clearError()
-
         const {charId} = props;
         if (!charId) {
             return;
@@ -34,31 +26,24 @@ const CharacterInfo = (props) => {
 
         getCharacter(charId)
             .then(onCharLoaded)
+            .then(() => setProcess('confirmed'))
     }
 
     const onCharLoaded = (char) => {
         setChar(char)
     }
-    
-    const skeleton = char || loading || error ? null : <Skeleton/>
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char}/> : null;
 
     return (
         <div className="character-info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+            {setContent(process, View, char)}
 
         </div>
     )
        
 }
 
-const View = ({char}) => {
-    const {name, thumb, desc, homepage, wiki, comics, isImgFound} = char
+const View = ({data}) => {
+    const {name, thumb, desc, homepage, wiki, comics, isImgFound} = data
     const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
     return (
         <>

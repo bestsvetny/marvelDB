@@ -1,13 +1,30 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage'
+import ErrorMessage from '../errorMessage/ErrorMessage';
 
 import './characterCard.scss'
 import './characterList.scss'
+
+const setContent = (process, Component, newItemLoading) => {
+    switch (process) {
+        case 'waiting':
+            return <Spinner/>
+        case 'loading':
+            return newItemLoading ? <Component/> : <Spinner/>
+        case 'confirmed':
+            return <Component/>
+        case 'error':
+            return <ErrorMessage/>
+        default:
+            throw new Error('Unexpected process state')
+    }
+}
+
 
 const CharacterList = (props) => {
     const [charList, setCharList] = useState([])
@@ -15,7 +32,7 @@ const CharacterList = (props) => {
     const [offset, setOffset] = useState(190)
     const [isCharEnded, setIsCharEnded] = useState(false) 
 
-    const {getAllCharacters, loading, error} = useMarvelService()
+    const {getAllCharacters, process, setProcess} = useMarvelService()
 
     useEffect(() => {
         onRequest(offset, true)
@@ -25,6 +42,7 @@ const CharacterList = (props) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true)
         getAllCharacters(offset)
             .then(onCharListLoaded) //Выполняется когда компонент отрисован
+            .then(() => setProcess('confirmed'))
     }
 
 
@@ -47,51 +65,50 @@ const CharacterList = (props) => {
     }
 
     function renderCards(arr) {
+        const items = arr.map((item, i) => {
+            const {id, name, thumb, isImgFound} = item;
+            const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
+                return (
+                    <CSSTransition
+                        key={id}
+                        timeout={300}  // Длительность перехода
+                        classNames="character-card">
+                        
+                    <li className="character-card"
+                        tabIndex='0'
+                        ref={element => itemRefs.current[i] = element}
+                        onClick={() => {
+                            props.onCharSelected(id)
+                            focusOnItem(i)
+                        }}
+                        onKeyDown={(event) => {if (event.key === 'Enter') {
+                            props.onCharSelected(id)
+                            focusOnItem(i)
+                            }}}>
+                        <img src={thumb} alt={name} className="character-card__image" style={imgStyle}/>
+                        <p className="character-card__name">{name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}</p>
+                    </li>
+                    </CSSTransition>
+                )
+
+        })
         return (
-            (arr.map((item, i) => {
-                const {id, name, thumb, isImgFound} = item;
-                const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
-
-                    return (
-                        <CSSTransition
-                            key={id}
-                            timeout={300}  // Длительность перехода
-                            classNames="character-card">
-                            
-                        <li className="character-card"
-                            tabIndex='0'
-                            ref={element => itemRefs.current[i] = element}
-                            onClick={() => {
-                                props.onCharSelected(id)
-                                focusOnItem(i)
-                            }}
-                            onKeyDown={(event) => {if (event.key === 'Enter') {
-                                props.onCharSelected(id)
-                                focusOnItem(i)
-                                }}}>
-                            <img src={thumb} alt="Character" className="character-card__image" style={imgStyle}/>
-                            <p className="character-card__name">{name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}</p>
-                        </li>
-                        </CSSTransition>
-                    )
-
-            }))
+            <ul className="character-list__grid">
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
+            </ul>
         )
     }
 
-    const spinner = loading && !newItemLoading ? <Spinner/> : null;
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const content = renderCards(charList);
+    const elements = useMemo(() => {
+        return setContent(process, () => renderCards(charList), newItemLoading)
+        //eslint-disable-next-line
+    }, [process])
 
     return (
         <div className="character-list">
-            {spinner}
-            {errorMessage}
-            <ul className="character-list__grid">
-                <TransitionGroup component={null}>
-                    {content}
-                </TransitionGroup>
-            </ul>
+            {elements}
             <button 
                 className="character-list__load-more-btn button button_main button_long"
                 onClick={() => onRequest(offset)}
