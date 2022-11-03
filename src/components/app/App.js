@@ -14,7 +14,6 @@ const App = () => {
 
 	return (
 		<Router>
-			<p style={{position: 'fixed', top: '0px'}}>react^18.2 react-router^6.4</p>
 			<div className="app">
 				<AppHeader />
 				<main>
