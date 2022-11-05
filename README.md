@@ -2,4 +2,4 @@
 
 Simple DB with marvel characters and comics
 
-https://bestsvetny-marveldb.herokuapp.com/
+https://bestsvetny-marvel.herokuapp.com/
