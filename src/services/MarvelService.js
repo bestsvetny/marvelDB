@@ -9,16 +9,16 @@ const useMarvelService = () => {
     const _comicsOffset = '200';
 
     const getAllCharacters = async (offset = _charOffset) => {
-        const response = await request(`${_apiBase}/characters?limit=9&offset=${offset}&apikey=${_apiKey}`); //В response попадает промис с массивом персонажей
-        return response.data.results.map(_transformCharacter); //возвращаем массив трансформированных объектов
+        const response = await request(`${_apiBase}/characters?limit=9&offset=${offset}&apikey=${_apiKey}`);
+        return response.data.results.map(_transformCharacter);
     }
 
     const getCharacter = async (id) => {
-        const response = await request(`${_apiBase}/characters/${id}?apikey=${_apiKey}`); //В response попадает промис
-        return _transformCharacter(response.data.results[0]); //возвращаем трансформированный объект
+        const response = await request(`${_apiBase}/characters/${id}?apikey=${_apiKey}`);
+        return _transformCharacter(response.data.results[0]);
     }
 
-    const getCharacterByName = async (name) => { // Returns char id or null
+    const getCharacterByName = async (name) => {
         name = name.replace(/ /ig,'%20')
         const response = await request(`https://gateway.marvel.com:443/v1/public/characters?name=${name}&apikey=${_apiKey}`);
         return response.data.results.map(_transformCharacter);
@@ -34,7 +34,7 @@ const useMarvelService = () => {
         return response.data.results.map(_transformComics);
     }
 
-    const _transformCharacter = (char) => { //Получаем объект с персонажем, возвращаем объект только с нужными нам свойствами
+    const _transformCharacter = (char) => {
         return {
             id: char.id,
             name: char.name,

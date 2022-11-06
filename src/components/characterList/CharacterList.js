@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
 import useMarvelService from '../../services/MarvelService';
@@ -41,7 +40,7 @@ const CharacterList = (props) => {
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true)
         getAllCharacters(offset)
-            .then(onCharListLoaded) //Выполняется когда компонент отрисован
+            .then(onCharListLoaded)
             .then(() => setProcess('confirmed'))
     }
 
@@ -69,11 +68,6 @@ const CharacterList = (props) => {
             const {id, name, thumb, isImgFound} = item;
             const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
                 return (
-                    <CSSTransition
-                        key={id}
-                        timeout={300}  // Длительность перехода
-                        classNames="character-card">
-                        
                     <li className="character-card"
                         tabIndex='0'
                         ref={element => itemRefs.current[i] = element}
@@ -88,15 +82,12 @@ const CharacterList = (props) => {
                         <img src={thumb} alt={name} className="character-card__image" style={imgStyle}/>
                         <p className="character-card__name">{name.length > 28 ? `${name.slice(0, name.indexOf(' ', 27))}...` : name}</p>
                     </li>
-                    </CSSTransition>
                 )
 
         })
         return (
             <ul className="character-list__grid">
-                <TransitionGroup component={null}>
-                    {items}
-                </TransitionGroup>
+                {items}
             </ul>
         )
     }
