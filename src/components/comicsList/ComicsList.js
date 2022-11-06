@@ -55,9 +55,9 @@ const ComicsList = () => {
         const items = (arr.map((item, i) => {
             const {title, price, thumb} = item
             return (
-                <li 
-                className="comics-list__item"
-                tabIndex='0'>
+                <li key={i}
+                    className="comics-list__item"
+                    tabIndex='0'>
                     <Link 
                         to={`/comics/${item.id}`}
                         className='comics-list__link'>

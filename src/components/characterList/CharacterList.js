@@ -68,7 +68,8 @@ const CharacterList = (props) => {
             const {id, name, thumb, isImgFound} = item;
             const imgStyle = isImgFound ? {'objectFit' : 'cover'} : {'objectFit' : 'fill'};
                 return (
-                    <li className="character-card"
+                    <li key={id}
+                        className="character-card"
                         tabIndex='0'
                         ref={element => itemRefs.current[i] = element}
                         onClick={() => {
